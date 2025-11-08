@@ -6,6 +6,7 @@ function DictionaryAPI() {
     const [inputValue, setInputValue] = useState('');
     const [word, setWord] = useState('');
     const [translate, setTranslate] = useState('');
+    const [error, setError] = useState(null);
 
     const handleClick = () =>
     {
@@ -16,9 +17,9 @@ function DictionaryAPI() {
         const fetchDicAPI = async () => {
             try
             {
-                const API_URL = 'https://freedictionaryapi.com/api/v1/entries/en/';
+                const API_URL = `https://freedictionaryapi.com/api/v1/entries/en/${word}`;
 
-                const response = await fetch(API_URL/{word});
+                const response = await fetch(API_URL);
 
                 if(!response.ok)
                 {
@@ -29,9 +30,10 @@ function DictionaryAPI() {
 
                 console.log(data);
             }
-            catch
+            catch(err)
             {
-
+                setError(err.message);
+                console.error('Error fetching advice:', err);
             }
             finally
             {
